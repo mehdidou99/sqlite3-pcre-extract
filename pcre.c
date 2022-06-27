@@ -119,7 +119,7 @@ void regexp(sqlite3_context *ctx, int argc, sqlite3_value **argv)
 	strncpy(res, str, match_size);
 	res[match_size] = '\0';
 	sqlite3_result_text(ctx, res, -1, free);
-	return
+	return;
     }
 }
 

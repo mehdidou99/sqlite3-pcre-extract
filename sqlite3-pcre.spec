@@ -1,4 +1,4 @@
-Name: sqlite3-pcre
+Name: sqlite3-pcre-extract
 Version: 0.1.1
 Release: 0
 

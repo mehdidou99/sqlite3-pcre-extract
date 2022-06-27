@@ -131,6 +131,6 @@ int sqlite3_extension_init(sqlite3 *db, char **err, const sqlite3_api_routines *
 	    *err = "calloc: ENOMEM";
 	    return 1;
 	}
-	sqlite3_create_function(db, "REGEXP_EXTRACT", 2, SQLITE_UTF8, cache, regexp, NULL, NULL);
+	sqlite3_create_function(db, "REGEXP", 2, SQLITE_UTF8, cache, regexp, NULL, NULL);
 	return 0;
 }

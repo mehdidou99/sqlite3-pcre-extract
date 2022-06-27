@@ -100,9 +100,26 @@ void regexp(sqlite3_context *ctx, int argc, sqlite3_value **argv)
     {
 	int rc;
 	assert(p);
-	rc = pcre_exec(p, e, str, strlen(str), 0, 0, NULL, 0);
-	sqlite3_result_int(ctx, rc >= 0);
-	return;
+	// rc = pcre_exec(p, e, str, strlen(str), 0, 0, NULL, 0);7
+	// sqlite3_result_int(ctx, rc >= 0);
+	// return;
+	int offsets[2];
+	rc = pcre_exec(p, e, str, strlen(str), 0, 0, offsets, 2);
+	if (rc < 0) {
+		sqlite3_result_null(ctx);
+		return;
+	}
+	int match_size = offsets[1] - offsets[0];
+	char* res;
+	res = (char*)calloc(match_size+1, sizeof(char));
+	if (!res) {
+		sqlite3_result_error(ctx, "calloc: ENOMEM", -1);
+		return;
+	}
+	strncpy(res, str, match_size);
+	res[match_size] = '\0';
+	sqlite3_result_text(ctx, res, -1, free);
+	return
     }
 }
 
@@ -114,6 +131,6 @@ int sqlite3_extension_init(sqlite3 *db, char **err, const sqlite3_api_routines *
 	    *err = "calloc: ENOMEM";
 	    return 1;
 	}
-	sqlite3_create_function(db, "REGEXP", 2, SQLITE_UTF8, cache, regexp, NULL, NULL);
+	sqlite3_create_function(db, "REGEXP_EXTRACT", 2, SQLITE_UTF8, cache, regexp, NULL, NULL);
 	return 0;
 }

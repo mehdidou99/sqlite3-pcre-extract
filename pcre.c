@@ -110,6 +110,7 @@ void regexp(sqlite3_context *ctx, int argc, sqlite3_value **argv)
 		sqlite3_result_null(ctx);
 		return;
 	}
+	int offset = offsets[0];
 	int match_size = offsets[1] - offsets[0];
 	char* res;
 	res = (char*)calloc(match_size+1, sizeof(char));
@@ -117,7 +118,7 @@ void regexp(sqlite3_context *ctx, int argc, sqlite3_value **argv)
 		sqlite3_result_error(ctx, "calloc: ENOMEM", -1);
 		return;
 	}
-	strncpy(res, str, match_size);
+	strncpy(res, str+offset, match_size);
 	res[match_size] = '\0';
 	sqlite3_result_text(ctx, res, -1, free);
 	return;

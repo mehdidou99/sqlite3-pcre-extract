@@ -7,6 +7,9 @@ prefix=/usr
 
 .PHONY : install dist clean
 
+pcre_extract.so : pcre_extract.c
+	${CC} -shared -o $@ ${CFLAGS} -W -Werror pcre_extract.c -lpcre ${LIBS} -Wl,-z,defs
+
 pcre.so : pcre.c
 	${CC} -shared -o $@ ${CFLAGS} -W -Werror pcre.c -lpcre ${LIBS} -Wl,-z,defs
 

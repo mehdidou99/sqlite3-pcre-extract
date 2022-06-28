@@ -5,3 +5,5 @@ The code was written by Alexey Tourbin and can be found at:
 
 http://git.altlinux.org/people/at/packages/?p=sqlite3-pcre.git
 
+This code was then adapted by Mehdi Benharrats
+NOT SUITED FOR PRODUCTION

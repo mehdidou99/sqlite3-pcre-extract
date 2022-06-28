@@ -34,13 +34,14 @@ void regexp(sqlite3_context *ctx, int argc, sqlite3_value **argv)
 
     re = (const char *) sqlite3_value_text(argv[0]);
     if (!re) {
-	sqlite3_result_error(ctx, "no regexp", -1);
+	sqlite3_result_error(ctx, "Error in function regexp : no regexp", -1);
 	return;
     }
 
     str = (const char *) sqlite3_value_text(argv[1]);
     if (!str) {
-	sqlite3_result_error(ctx, "no string", -1);
+	// sqlite3_result_error(ctx, "Error in function regexp : no string", -1);
+	sqlite3_result_null(ctx);
 	return;
     }
 
